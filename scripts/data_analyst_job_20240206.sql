@@ -49,7 +49,7 @@ FROM data_analyst_jobs
 WHERE review_count > 5000
 GROUP BY company;
 -- 9b. How many companies are there with more that 5000 reviews across all locations?
-SELECT COUNT(company)
+SELECT COUNT(DISTINCT company)
 FROM data_analyst_jobs
 WHERE review_count > 5000;
 -- 10a. Add the code to order the query in #9 from highest to lowest average star rating.
@@ -58,26 +58,25 @@ SELECT company, AVG(star_rating) AS avg_star_rating
 FROM data_analyst_jobs
 WHERE review_count > 5000
 GROUP BY company
-ORDER BY avg_star_rating DESC
-LIMIT 1;
+ORDER BY avg_star_rating DESC;
 -- 10b. What is that rating?
--- ~4.2
+-- ~4.2 (six way tie)
 -- 11a. Find all the job titles that contain the word ‘Analyst’.
 SELECT title
 FROM data_analyst_jobs
-WHERE title LIKE '%Analyst%';
+WHERE title ILIKE '%Analyst%';
 -- 11b. How many different job titles are there?
 SELECT COUNT(title)
 FROM data_analyst_jobs
-WHERE title LIKE '%Analyst%';
+WHERE title ILIKE '%Analyst%';
 -- 12a. How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’?
 SELECT COUNT(title)
 FROM data_analyst_jobs
 WHERE title NOT ILIKE '%Analyst%'
 AND title NOT ILIKE '%Analytics%';
--- 12b. What word do these positions have in common?
+-- 12b. What word do these positions have in common? Tableau
 SELECT title
 FROM data_analyst_jobs
 WHERE title NOT ILIKE '%Analyst%'
 AND title NOT ILIKE '%Analytics%';
--- BONUS
+--- BONUS
